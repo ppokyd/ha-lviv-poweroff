@@ -48,7 +48,7 @@ class EnergyUaScrapper:
             return results
 
     def _parse_item(self, item: BeautifulSoup) -> tuple[int, int]:
-        match = re.search(PATTERN, item.text)
+        match = re.search(PATTERN, item.get_text())
 
         if match:
             # Extract start and end hours and convert them to integers
