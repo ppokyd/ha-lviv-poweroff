@@ -34,14 +34,14 @@ class EnergyUaScrapper:
             content = await response.text()
             soup = BeautifulSoup(content, "html.parser")
             results = []
-            grafiks = soup.find_all("div", class_="grafik_string_list")
+            grafiks = soup.find_all("div", class_="periods_items")
             if len(grafiks) > 0:
-                grafiks_today = grafiks[0].find_all("div", class_="grafik_string_list_item")
+                grafiks_today = grafiks[0].find_all("span")
                 for item in grafiks_today:
                     start, end = self._parse_item(item)
                     results.append(PowerOffPeriod(start, end, today=True))
             if len(grafiks) > 1:
-                graphiks_tomorrow = grafiks[1].find_all("div", class_="grafik_string_list_item")
+                graphiks_tomorrow = grafiks[1].find_all("span")
                 for item in graphiks_tomorrow:
                     start, end = self._parse_item(item)
                     results.append(PowerOffPeriod(start, end, today=False))
